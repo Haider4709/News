@@ -1,23 +1,67 @@
+
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock title %}
+{% block title %}Home | Daily News{% endblock title %}
 
 {% block content %}
 
-{% if user.is_authenticated %}
-    <p>Hi {{ user.username }}!</p>
+<section class="hero-section text-center py-5">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Stay Informed. Stay Ahead.</h1>
+        <p class="lead">
+            Your daily source for news, stories and updates.
+        </p>
+        <a href="#latest-news" class="btn btn-primary btn-lg">
+            Explore News
+        </a>
+    </div>
+</section>
 
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Log Out</button>
-    </form>
+<section class="container py-5" id="latest-news">
+    <h2 class="mb-4 fw-bold">Latest News</h2>
 
-{% else %}
-    <p>Person not logged in</p>
+    <div class="row g-4">
 
-    <a href="{% url 'login' %}">Log In</a>
-    <a href="{% url 'signup' %}">Sign Up</a>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <span class="badge bg-primary">Technology</span>
+                    <h5 class="card-title mt-3">Technology and Innovation</h5>
+                    <p class="card-text">
+                        Discover the latest technology trends
+                        and innovations around the world.
+                    </p>
+                </div>
+            </div>
+        </div>
 
-{% endif %}
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <span class="badge bg-success">Business</span>
+                    <h5 class="card-title mt-3">Business Updates</h5>
+                    <p class="card-text">
+                        Stay updated with business news
+                        and financial developments.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <span class="badge bg-danger">Sports</span>
+                    <h5 class="card-title mt-3">Sports Highlights</h5>
+                    <p class="card-text">
+                        Follow the latest sports stories
+                        and important events.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
 
 {% endblock content %}
