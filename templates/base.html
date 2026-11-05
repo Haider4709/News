@@ -7,52 +7,113 @@
 
     <title>{% block title %}Daily News{% endblock title %}</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
+    <!-- Custom CSS -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=3">
+
 </head>
 
 <body>
 
+<!-- ========================================
+     NAVBAR
+======================================== -->
 
-
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark">
     <div class="container">
 
-        <!-- Website logo -->
-        <a class="navbar-brand fw-bold" href="{% url 'home' %}">
-            Daily News
-        </a>
+        <!-- Website Logo -->
+<a class="navbar-brand d-flex align-items-center gap-2"
+   href="{% url 'home' %}">
 
-        <!-- Mobile hamburger button -->
-        <button class="navbar-toggler" type="button"
+    <img src="{% static 'images/eye.svg' %}"
+         alt="Daily News Logo"
+         class="site-logo">
+
+    <span>DAILY NEWS</span>
+
+</a>
+
+        <!-- Mobile Hamburger Button -->
+        <button class="navbar-toggler"
+                type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarMenu"
                 aria-controls="navbarMenu"
                 aria-expanded="false"
                 aria-label="Toggle navigation">
+
             <span class="navbar-toggler-icon"></span>
+
         </button>
 
-        <!-- Navigation links -->
+        <!-- Navigation Links -->
         <div class="collapse navbar-collapse" id="navbarMenu">
 
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto align-items-md-center">
 
+                <!-- Main Pages -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    <a class="nav-link" href="{% url 'home' %}">
+                        Home
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                    <a class="nav-link" href="{% url 'about' %}">
+                        About
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                    <a class="nav-link" href="{% url 'contact' %}">
+                        Contact
+                    </a>
                 </li>
 
+                <!-- Newspaper Categories -->
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'category_detail' 'world' %}">
+                        World
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'category_detail' 'local' %}">
+                        Local
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'category_detail' 'sports' %}">
+                        Sports
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'category_detail' 'weather' %}">
+                        Weather
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'category_detail' 'business' %}">
+                        Business
+                    </a>
+                </li>
+
+                <!-- Membership -->
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'payments:plans' %}">
                         Membership
@@ -61,13 +122,17 @@
 
                 {% if user.is_authenticated %}
 
+                    <!-- Authenticated User Dropdown -->
                     <li class="nav-item dropdown">
+
                         <a class="nav-link dropdown-toggle"
                            href="#"
                            role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
+
                             {{ user.username }}
+
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -75,6 +140,13 @@
                             <li>
                                 <a class="dropdown-item" href="#">
                                     My Profile
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item"
+                                   href="{% url 'password_change' %}">
+                                    Change Password
                                 </a>
                             </li>
 
@@ -89,9 +161,11 @@
                                 <hr class="dropdown-divider">
                             </li>
 
+                            <!-- Logout -->
                             <li>
                                 <form action="{% url 'logout' %}" method="post">
                                     {% csrf_token %}
+
                                     <button class="dropdown-item" type="submit">
                                         Logout
                                     </button>
@@ -99,10 +173,12 @@
                             </li>
 
                         </ul>
+
                     </li>
 
                 {% else %}
 
+                    <!-- Anonymous User Links -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">
                             Login
@@ -110,7 +186,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="btn btn-primary" href="{% url 'signup' %}">
+                        <a class="btn btn-primary ms-md-2"
+                           href="{% url 'signup' %}">
                             Sign Up
                         </a>
                     </li>
@@ -118,26 +195,41 @@
                 {% endif %}
 
             </ul>
+
         </div>
+
     </div>
 </nav>
 
 
+<!-- ========================================
+     MAIN CONTENT
+======================================== -->
 
 <main>
+
     {% block content %}
     {% endblock content %}
+
 </main>
 
 
+<!-- ========================================
+     FOOTER
+======================================== -->
+
 <footer class="site-footer">
+
     <div class="container py-5">
 
         <div class="row g-4">
 
             <!-- About -->
             <div class="col-lg-4 col-md-6">
-                <h3 class="footer-brand">Daily News.</h3>
+
+                <h3 class="footer-brand">
+                    Daily News.
+                </h3>
 
                 <p class="footer-text">
                     Your trusted source for the latest news,
@@ -146,46 +238,104 @@
                 </p>
 
                 <div class="social-links">
+
                     <a href="#" aria-label="Facebook">Facebook</a>
                     <a href="#" aria-label="Instagram">Instagram</a>
                     <a href="#" aria-label="X">X</a>
                     <a href="#" aria-label="LinkedIn">LinkedIn</a>
+
                 </div>
+
             </div>
+
 
             <!-- Quick Links -->
             <div class="col-lg-2 col-md-6">
+
                 <h5>Quick Links</h5>
+
                 <ul class="footer-links">
-                    <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="{% url 'about' %}">About Us</a></li>
-                    <li><a href="{% url 'contact' %}">Contact</a></li>
-                    <li><a href="#">Latest News</a></li>
+
+                    <li>
+                        <a href="{% url 'home' %}">Home</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'about' %}">About Us</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'contact' %}">Contact</a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'home' %}#latest-news">
+                            Latest News
+                        </a>
+                    </li>
+
                 </ul>
+
             </div>
+
 
             <!-- Categories -->
             <div class="col-lg-3 col-md-6">
+
                 <h5>Categories</h5>
+
                 <ul class="footer-links">
-                    <li><a href="#">Technology</a></li>
-                    <li><a href="#">Business</a></li>
-                    <li><a href="#">Sports</a></li>
-                    <li><a href="#">Politics</a></li>
-                    
+
+                    <li>
+                        <a href="{% url 'category_detail' 'world' %}">
+                            World
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'category_detail' 'local' %}">
+                            Local
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'category_detail' 'sports' %}">
+                            Sports
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'category_detail' 'weather' %}">
+                            Weather
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'category_detail' 'business' %}">
+                            Business
+                        </a>
+                    </li>
+
                 </ul>
+
             </div>
+
 
             <!-- Newsletter -->
             <div class="col-lg-3 col-md-6">
+
                 <h5>Stay Updated</h5>
+
                 <p class="footer-text">
                     Subscribe to receive our latest news and updates.
                 </p>
 
                 <form method="post" action="#">
+
                     {% csrf_token %}
+
                     <div class="input-group">
+
                         <input type="email"
                                class="form-control"
                                placeholder="Your email address"
@@ -195,34 +345,56 @@
                         <button class="btn btn-primary" type="submit">
                             Subscribe
                         </button>
+
                     </div>
+
                 </form>
+
             </div>
 
         </div>
 
+
         <hr class="footer-divider">
+
 
         <!-- Bottom Footer -->
         <div class="row align-items-center gy-3">
 
             <div class="col-md-6">
+
                 <p class="mb-0 footer-text">
                     &copy; 2026 Daily News. All rights reserved.
                 </p>
+
             </div>
 
             <div class="col-md-6 text-md-end">
-                <a href="#" class="bottom-link">Privacy Policy</a>
-                <a href="#" class="bottom-link">Terms of Service</a>
-                <a href="#" class="bottom-link">Help</a>
+
+                <a href="#" class="bottom-link">
+                    Privacy Policy
+                </a>
+
+                <a href="#" class="bottom-link">
+                    Terms of Service
+                </a>
+
+                <a href="#" class="bottom-link">
+                    Help
+                </a>
+
             </div>
 
         </div>
 
     </div>
+
 </footer>
 
+
+<!-- ========================================
+     BOOTSTRAP JAVASCRIPT
+======================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 

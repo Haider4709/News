@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5 text-center">
+
+    <h2 class="text-success">Payment Confirmation</h2>
+
+    <p>
+        Your payment status will be updated
+        after gateway verification.
+    </p>
+
+    <a href="{% url 'payments:history' %}"
+       class="btn btn-primary">
+        View Payment History
+    </a>
+
+</div>
+
+{% endblock content %}
