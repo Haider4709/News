@@ -1,0 +1,58 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Payment History | Daily News{% endblock title %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <h2 class="fw-bold mb-4">My Payment History</h2>
+
+    {% if payments %}
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Purpose</th>
+                        <th>Amount</th>
+                        <th>Gateway</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for payment in payments %}
+                    <tr>
+                        <td>{{ payment.transaction_id }}</td>
+                        <td>{{ payment.get_purpose_display }}</td>
+                        <td>৳{{ payment.amount }}</td>
+                        <td>{{ payment.get_gateway_display }}</td>
+                        <td>{{ payment.get_status_display }}</td>
+                        <td>{{ payment.created_at|date:"d M Y" }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% else %}
+
+        <div class="alert alert-info">
+            You haven't made any payments yet.
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock content %}

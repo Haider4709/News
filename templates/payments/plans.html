@@ -1,0 +1,74 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Membership Plans | Daily News{% endblock title %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Choose Your Membership</h1>
+        <p class="text-muted">
+            Stay informed with Daily News.
+        </p>
+    </div>
+
+    <div class="row justify-content-center g-4">
+
+        {% for plan in plans %}
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card h-100 shadow-sm border-0">
+
+                <div class="card-body p-4 text-center">
+
+                    <h3 class="fw-bold">{{ plan.name }}</h3>
+
+                    <h2 class="my-3">
+                        ৳{{ plan.price }}
+                    </h2>
+
+                    <p class="text-muted">
+                        {{ plan.period }}
+                    </p>
+
+                    <hr>
+
+                    <ul class="list-unstyled text-start">
+
+                        {% for feature in plan.features %}
+                        <li class="mb-3">
+                            <span class="text-success">✓</span>
+                            {{ feature }}
+                        </li>
+                        {% endfor %}
+
+                    </ul>
+
+                    {% if plan.price == 0 %}
+                        <a href="{% url 'home' %}"
+                           class="btn btn-outline-primary w-100">
+                            Continue Free
+                        </a>
+                    {% else %}
+                        <button class="btn btn-primary w-100"
+                                disabled>
+                            Payment setup pending
+                        </button>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock content %}

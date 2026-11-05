@@ -17,6 +17,7 @@
 <body>
 
 
+
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
 
@@ -32,78 +33,95 @@
                 aria-controls="navbarMenu"
                 aria-expanded="false"
                 aria-label="Toggle navigation">
-
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <!-- Navigation links -->
-       <div class="collapse navbar-collapse" id="navbarMenu">
+        <div class="collapse navbar-collapse" id="navbarMenu">
 
-    <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto">
 
-        <!-- Your navigation links -->
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' %}">Home</a>
-        </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'about' %}">About</a>
-        </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
 
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-        </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                </li>
 
-        <!-- KEEP YOUR EXISTING AUTHENTICATION SECTION HERE -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'payments:plans' %}">
+                        Membership
+                    </a>
+                </li>
 
-        {% if user.is_authenticated %}
+                {% if user.is_authenticated %}
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"
-                   href="#"
-                   data-bs-toggle="dropdown">
-                    {{ user.username }}
-                </a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            {{ user.username }}
+                        </a>
 
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            My Profile
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    My Profile
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item"
+                                   href="{% url 'payments:history' %}">
+                                    Payment History
+                                </a>
+                            </li>
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+                            <li>
+                                <form action="{% url 'logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="dropdown-item" type="submit">
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">
+                            Login
                         </a>
                     </li>
 
-                    <li>
-                        <form action="{% url 'logout' %}" method="post">
-                            {% csrf_token %}
-                            <button class="dropdown-item" type="submit">
-                                Logout
-                            </button>
-                        </form>
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="{% url 'signup' %}">
+                            Sign Up
+                        </a>
                     </li>
-                </ul>
-            </li>
 
-        {% else %}
-
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Login</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="btn btn-primary" href="{% url 'signup' %}">
-                    Sign Up
-                </a>
-            </li>
-
-        {% endif %}
-
-    </ul>
-</div>
+                {% endif %}
 
             </ul>
         </div>
     </div>
 </nav>
+
 
 
 <main>
