@@ -1,6 +1,8 @@
 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,132 +16,139 @@
     >
 
     <!-- Custom CSS -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=3">
+   <link rel="stylesheet" href="{% static 'css/style.css' %}?v=6">
 
 </head>
 
 <body>
 
 <!-- ========================================
-     NAVBAR
+     1. NAVBAR
 ======================================== -->
 
-<nav class="navbar navbar-expand-md navbar-dark">
-    <div class="container">
 
-        <!-- Website Logo -->
-<a class="navbar-brand d-flex align-items-center gap-2"
-   href="{% url 'home' %}">
 
-    <img src="{% static 'images/eye.svg' %}"
-         alt="Daily News Logo"
-         class="site-logo">
+<nav class="navbar navbar-dark">
+    <div class="container-fluid navbar-inner">
 
-    <span>DAILY NEWS</span>
+        <!-- Logo and Newspaper Name -->
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img
+                src="{% static 'images/eye.svg' %}"
+                alt="Daily News Logo"
+                class="site-logo"
+            >
+            <span>DAILY NEWS</span>
+        </a>
 
-</a>
+        <!-- Search Box -->
+        <form
+            class="navbar-search"
+            action="{% url 'home' %}"
+            method="get"
+        >
+            <input
+                type="search"
+                id="navbarSearch"
+                name="q"
+                class="form-control"
+                placeholder="Search news..."
+                aria-label="Search news"
+            >
+        </form>
 
-        <!-- Mobile Hamburger Button -->
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarMenu"
-                aria-controls="navbarMenu"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
+        <!-- Four Always Visible Links -->
+        <div class="navbar-quick-links">
 
+            <a href="{% url 'home' %}">Home</a>
+
+            <a href="{% url 'about' %}">About</a>
+
+            <a href="{% url 'contact' %}">Contact</a>
+
+            <a href="{% url 'category_detail' 'world' %}">World</a>
+
+        </div>
+
+        <!-- Hamburger Button -->
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+            aria-controls="navbarMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
             <span class="navbar-toggler-icon"></span>
-
         </button>
 
-        <!-- Navigation Links -->
+        <!-- Vertical Hamburger Menu -->
         <div class="collapse navbar-collapse" id="navbarMenu">
 
-            <ul class="navbar-nav ms-auto align-items-md-center">
+            <ul class="navbar-nav">
 
-                <!-- Main Pages -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">
-                        Home
-                    </a>
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">
-                        About
-                    </a>
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'contact' %}">
-                        Contact
-                    </a>
-                </li>
-
-                <!-- Newspaper Categories -->
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="{% url 'category_detail' 'world' %}">
-                        World
-                    </a>
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="{% url 'category_detail' 'local' %}">
-                        Local
-                    </a>
+                       href="{% url 'category_detail' 'world' %}">World</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="{% url 'category_detail' 'sports' %}">
-                        Sports
-                    </a>
+                       href="{% url 'category_detail' 'local' %}">Local</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="{% url 'category_detail' 'weather' %}">
-                        Weather
-                    </a>
+                       href="{% url 'category_detail' 'sports' %}">Sports</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="{% url 'category_detail' 'business' %}">
-                        Business
-                    </a>
+                       href="{% url 'category_detail' 'weather' %}">Weather</a>
                 </li>
 
-                <!-- Membership -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'payments:plans' %}">
-                        Membership
-                    </a>
+                    <a class="nav-link"
+                       href="{% url 'category_detail' 'business' %}">Business</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="{% url 'payments:plans' %}">Membership</a>
                 </li>
 
                 {% if user.is_authenticated %}
 
-                    <!-- Authenticated User Dropdown -->
                     <li class="nav-item dropdown">
-
-                        <a class="nav-link dropdown-toggle"
-                           href="#"
-                           role="button"
-                           data-bs-toggle="dropdown"
-                           aria-expanded="false">
-
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
                             {{ user.username }}
-
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end">
 
                             <li>
-                                <a class="dropdown-item" href="#">
-                                    My Profile
+                                <a class="dropdown-item"
+                                href="{% url 'accounts:profile' %}">
+                         My Profile
                                 </a>
                             </li>
 
@@ -157,15 +166,14 @@
                                 </a>
                             </li>
 
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+                            <li><hr class="dropdown-divider"></li>
 
-                            <!-- Logout -->
                             <li>
-                                <form action="{% url 'logout' %}" method="post">
+                                <form
+                                    action="{% url 'logout' %}"
+                                    method="post"
+                                >
                                     {% csrf_token %}
-
                                     <button class="dropdown-item" type="submit">
                                         Logout
                                     </button>
@@ -173,12 +181,10 @@
                             </li>
 
                         </ul>
-
                     </li>
 
                 {% else %}
 
-                    <!-- Anonymous User Links -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">
                             Login
@@ -186,10 +192,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="btn btn-primary ms-md-2"
-                           href="{% url 'signup' %}">
-                            Sign Up
-                        </a>
+                        <a class="nav-link" href="{% url 'accounts:signup' %}">
+    Sign Up
+</a>
                     </li>
 
                 {% endif %}
@@ -201,9 +206,8 @@
     </div>
 </nav>
 
-
 <!-- ========================================
-     MAIN CONTENT
+     2. MAIN CONTENT
 ======================================== -->
 
 <main>
@@ -215,7 +219,7 @@
 
 
 <!-- ========================================
-     FOOTER
+     3. FOOTER
 ======================================== -->
 
 <footer class="site-footer">
@@ -224,7 +228,7 @@
 
         <div class="row g-4">
 
-            <!-- About -->
+            <!-- About Daily News -->
             <div class="col-lg-4 col-md-6">
 
                 <h3 class="footer-brand">
@@ -247,7 +251,6 @@
                 </div>
 
             </div>
-
 
             <!-- Quick Links -->
             <div class="col-lg-2 col-md-6">
@@ -277,7 +280,6 @@
                 </ul>
 
             </div>
-
 
             <!-- Categories -->
             <div class="col-lg-3 col-md-6">
@@ -320,7 +322,6 @@
 
             </div>
 
-
             <!-- Newsletter -->
             <div class="col-lg-3 col-md-6">
 
@@ -336,11 +337,13 @@
 
                     <div class="input-group">
 
-                        <input type="email"
-                               class="form-control"
-                               placeholder="Your email address"
-                               aria-label="Your email address"
-                               required>
+                        <input
+                            type="email"
+                            class="form-control"
+                            placeholder="Your email address"
+                            aria-label="Your email address"
+                            required
+                        >
 
                         <button class="btn btn-primary" type="submit">
                             Subscribe
@@ -354,11 +357,9 @@
 
         </div>
 
-
         <hr class="footer-divider">
 
-
-        <!-- Bottom Footer -->
+        <!-- Footer Bottom -->
         <div class="row align-items-center gy-3">
 
             <div class="col-md-6">
@@ -393,10 +394,16 @@
 
 
 <!-- ========================================
-     BOOTSTRAP JAVASCRIPT
+     4. JAVASCRIPT
 ======================================== -->
 
+<!-- Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script src="{% static 'js/main.js' %}" defer></script>
+<script src="{% static 'js/search.js' %}" defer></script>
+<script src="{% static 'js/comments.js' %}" defer></script>
 
 </body>
 </html>

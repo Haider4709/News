@@ -52,6 +52,12 @@ class Article(models.Model):
         default="draft",
     )
 
+    image = models.ImageField(
+        upload_to="articles/",
+        blank=True,
+        null=True,
+    )
+
     published_at = models.DateTimeField(default=timezone.now)
 
     created_at = models.DateTimeField(auto_now_add=True)

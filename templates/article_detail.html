@@ -5,31 +5,47 @@
 
 {% block content %}
 
-<div class="container py-5">
+<div class="container py-5 article-page-container">
 
     <div class="row justify-content-center">
 
-        <div class="col-12 col-lg-9">
+        <div class="col-12 col-lg-11">
 
+            <!-- Article Category -->
             <p class="text-primary">
                 {{ article.category.name }}
             </p>
 
+            <!-- Article Title -->
             <h1 class="mb-3">
                 {{ article.title }}
             </h1>
 
+            <!-- Author and Publication Date -->
             <p class="text-muted">
                 By {{ article.author }} |
                 {{ article.published_at|date:"F d, Y" }}
             </p>
 
+            <!-- Article Featured Image -->
+            {% if article.image %}
+                <div class="article-image-container">
+                    <img
+                        src="{{ article.image.url }}"
+                        alt="{{ article.title }}"
+                        class="article-featured-image"
+                    >
+                </div>
+            {% endif %}
+
             <hr>
 
+            <!-- Article Body -->
             <div class="article-content">
                 {{ article.body|linebreaks }}
             </div>
 
+            <!-- Back to Category -->
             <a
                 href="{{ article.category.get_absolute_url }}"
                 class="btn btn-outline-primary mt-4"

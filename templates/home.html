@@ -28,12 +28,32 @@
         <h2>Latest News</h2>
     </div>
 
+    <!-- Article Search: NEW -->
+    <div class="mb-4">
+        <input
+            type="search"
+            id="articleSearch"
+            class="form-control"
+            placeholder="Search articles..."
+            aria-label="Search articles"
+        >
+    </div>
+
     <div class="row g-4">
 
         {% for article in articles|slice:":3" %}
 
-            <div class="col-12 col-md-6 col-lg-4">
+            <!-- Added data-searchable -->
+            <div class="col-12 col-md-6 col-lg-4" data-searchable>
+
                 <div class="news-card h-100">
+
+                    {% if article.image %}
+                        <img src="{{ article.image.url }}"
+                             alt="{{ article.title }}"
+                             class="card-img-top">
+                    {% endif %}
+
                     <div class="card-body">
 
                         <span class="category-badge category-{{ article.category.slug }}">
@@ -92,9 +112,17 @@
 
         {% for article in category.articles.all|slice:":3" %}
 
-            <div class="col-12 col-md-6 col-lg-4">
+            <!-- Added data-searchable -->
+            <div class="col-12 col-md-6 col-lg-4" data-searchable>
 
                 <div class="news-card h-100">
+
+                    {% if article.image %}
+                        <img src="{{ article.image.url }}"
+                             alt="{{ article.title }}"
+                             class="card-img-top">
+                    {% endif %}
+
                     <div class="card-body">
 
                         <span class="category-badge category-{{ category.slug }}">

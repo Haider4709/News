@@ -45,7 +45,11 @@ INSTALLED_APPS = [
     "accounts",
     "pages",
     "payments",
+    "articles",
 ]
+
+TIME_ZONE = 'America/New_York'
+
 AUTH_USER_MODEL = "accounts.CustomUser"
 
 MIDDLEWARE = [
@@ -128,3 +132,6 @@ LOGOUT_REDIRECT_URL = "home"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
