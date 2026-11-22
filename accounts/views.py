@@ -13,6 +13,17 @@ class SignUpView(CreateView):
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        log_activity(
+            self.object,
+            "registration",
+            "New user registered."
+        )
+
+        return response
+
 @login_required
 def profile_view(request):
 
@@ -47,12 +58,15 @@ def profile_edit(request):
         if form.is_valid():
             form.save()
 
-            messages.success(
-                request,
-                "Your profile has been updated successfully."
+            from activity.utils import log_activity
+
+            log_activity(
+                request.user,
+                "profile_update",
+                "User updated their profile."
             )
 
-            return redirect("accounts:profile")
+            return redirect('accounts:profile')
 
     else:
 

@@ -1,6 +1,6 @@
-
 from django.db.models import Prefetch
 from django.views.generic import DetailView, ListView, TemplateView
+from activity.utils import log_activity
 
 from .models import Article, Category
 
@@ -58,6 +58,19 @@ class ArticleDetailView(DetailView):
         return Article.objects.filter(
             status="published"
         ).select_related("category", "author")
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+
+        article = self.object
+
+        log_activity(
+            request.user if request.user.is_authenticated else None,
+            "article_view",
+            f"Opened article: {article.title}"
+        )
+
+        return response
 
 
 class AboutPageView(TemplateView):

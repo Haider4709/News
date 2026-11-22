@@ -1,6 +1,8 @@
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+from activity.utils import log_activity
 from .models import Payment
 
 
@@ -46,12 +48,27 @@ def plans(request):
 @login_required
 def payment_history(request):
 
-    payments = Payment.objects.filter(user=request.user).order_by("-created_at")
+    payments = Payment.objects.filter(
+        user=request.user
+    ).order_by("-created_at")
 
     return render(request, "payments/history.html", {"payments": payments})
 
 
+@login_required
 def payment_success(request):
+
+    # Record successful payment page access.
+    # This assumes payment has already been verified.
+    if not request.session.get("payment_success_logged"):
+        log_activity(
+            request.user,
+            "payment_success",
+            "User completed a payment successfully."
+        )
+
+        request.session["payment_success_logged"] = True
+
     return render(request, "payments/success.html")
 
 
