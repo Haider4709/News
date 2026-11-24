@@ -674,3 +674,30 @@ section {
     }
 
 }
+
+/* ========================================
+   NAVBAR AUTHENTICATION LINKS
+======================================== */
+
+.navbar-auth-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: 15px;
+    flex-shrink: 0;
+}
+
+.navbar-auth-links .nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.navbar-auth-links .nav-link:hover {
+    color: #38BDF8;
+}
+
+.navbar-auth-links .dropdown-menu {
+    min-width: 180px;
+}
+

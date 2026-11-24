@@ -16,7 +16,7 @@
     >
 
     <!-- Custom CSS -->
-   <link rel="stylesheet" href="{% static 'css/style.css' %}?v=6">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=6">
 
 </head>
 
@@ -25,8 +25,6 @@
 <!-- ========================================
      1. NAVBAR
 ======================================== -->
-
-
 
 <nav class="navbar navbar-dark">
     <div class="container-fluid navbar-inner">
@@ -70,6 +68,96 @@
 
         </div>
 
+        <!-- ========================================
+             USER AUTHENTICATION LINKS
+             Always visible outside hamburger menu
+        ======================================== -->
+
+        <div class="navbar-auth-links">
+
+            {% if user.is_authenticated %}
+
+                <!-- Logged-in user dropdown -->
+                <div class="dropdown">
+
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        {{ user.username }}
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'accounts:profile' %}"
+                            >
+                                My Profile
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'password_change' %}"
+                            >
+                                Change Password
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="{% url 'payments:history' %}"
+                            >
+                                Payment History
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <form
+                                action="{% url 'logout' %}"
+                                method="post"
+                            >
+                                {% csrf_token %}
+
+                                <button
+                                    class="dropdown-item"
+                                    type="submit"
+                                >
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            {% else %}
+
+                <!-- Logged-out visitor links -->
+                <a class="nav-link" href="{% url 'login' %}">
+                    Login
+                </a>
+
+                <a class="nav-link" href="{% url 'accounts:signup' %}">
+                    Sign Up
+                </a>
+
+            {% endif %}
+
+        </div>
+
         <!-- Hamburger Button -->
         <button
             class="navbar-toggler"
@@ -83,121 +171,86 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Vertical Hamburger Menu -->
+        <!-- ========================================
+             HAMBURGER MENU
+             Navigation links only
+        ======================================== -->
+
         <div class="collapse navbar-collapse" id="navbarMenu">
 
             <ul class="navbar-nav">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    <a class="nav-link" href="{% url 'home' %}">
+                        Home
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                    <a class="nav-link" href="{% url 'about' %}">
+                        About
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                    <a class="nav-link" href="{% url 'contact' %}">
+                        Contact
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="{% url 'category_detail' 'world' %}">World</a>
+                    <a
+                        class="nav-link"
+                        href="{% url 'category_detail' 'world' %}"
+                    >
+                        World
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="{% url 'category_detail' 'local' %}">Local</a>
+                    <a
+                        class="nav-link"
+                        href="{% url 'category_detail' 'local' %}"
+                    >
+                        Local
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="{% url 'category_detail' 'sports' %}">Sports</a>
+                    <a
+                        class="nav-link"
+                        href="{% url 'category_detail' 'sports' %}"
+                    >
+                        Sports
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="{% url 'category_detail' 'weather' %}">Weather</a>
+                    <a
+                        class="nav-link"
+                        href="{% url 'category_detail' 'weather' %}"
+                    >
+                        Weather
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="{% url 'category_detail' 'business' %}">Business</a>
+                    <a
+                        class="nav-link"
+                        href="{% url 'category_detail' 'business' %}"
+                    >
+                        Business
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="{% url 'payments:plans' %}">Membership</a>
+                    <a
+                        class="nav-link"
+                        href="{% url 'payments:plans' %}"
+                    >
+                        Membership
+                    </a>
                 </li>
-
-                {% if user.is_authenticated %}
-
-                    <li class="nav-item dropdown">
-                        <a
-                            class="nav-link dropdown-toggle"
-                            href="#"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            {{ user.username }}
-                        </a>
-
-                        <ul class="dropdown-menu dropdown-menu-end">
-
-                            <li>
-                                <a class="dropdown-item"
-                                href="{% url 'accounts:profile' %}">
-                         My Profile
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item"
-                                   href="{% url 'password_change' %}">
-                                    Change Password
-                                </a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item"
-                                   href="{% url 'payments:history' %}">
-                                    Payment History
-                                </a>
-                            </li>
-
-                            <li><hr class="dropdown-divider"></li>
-
-                            <li>
-                                <form
-                                    action="{% url 'logout' %}"
-                                    method="post"
-                                >
-                                    {% csrf_token %}
-                                    <button class="dropdown-item" type="submit">
-                                        Logout
-                                    </button>
-                                </form>
-                            </li>
-
-                        </ul>
-                    </li>
-
-                {% else %}
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">
-                            Login
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:signup' %}">
-    Sign Up
-</a>
-                    </li>
-
-                {% endif %}
 
             </ul>
 
@@ -205,6 +258,7 @@
 
     </div>
 </nav>
+
 
 <!-- ========================================
      2. MAIN CONTENT
